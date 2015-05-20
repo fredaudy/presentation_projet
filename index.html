@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="fr">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>mémoire</title>
+
+        <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+        <meta name="author" content="Hakim El Hattab">
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/black.css" id="theme">
+        <link rel="stylesheet" href="css/fullscreen-img.css">
+
+        <!-- Code syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- Printing and PDF exports -->
+        <script>
+            var link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+            document.getElementsByTagName('head')[0].appendChild(link);
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+        <div class="reveal">
+
+            <!-- intro -->
+            <div class="slides">
+                <section>
+                    <h1>Projet HERA</h1>
+                    <p>Sylvain Ferrari</p>
+                    <p>Varli Enes</p>
+                    <p>Baptiste Riera</p>
+                    <p>Frédéric AUDY</p>
+                    <small>projet de fin d'étude, IP-Formation</small>
+                </section>
+
+                <!-- le projet -->
+                <section>
+                    <section>
+                        <h2>objectifs</h2>
+                        <h3 class="fragment hljs-number"  data-fragment-index="1">outil de gestion:</h3>
+                        <p class="fragment hljs-string" data-fragment-index="2">la facturation</p>
+                        <p class="fragment hljs-string" data-fragment-index="3">la clientèle</p>
+                        <p class="fragment hljs-string" data-fragment-index="4">les stocks</p>
+                        <h3 class="fragment hljs-number" data-fragment-index="5">outil administrable:</h3>
+                        <p class="fragment hljs-string" data-fragment-index="6">gestion des utilisateurs</p>
+                    </section>
+
+                    <!-- documents composition -->
+                    <section>
+                        <h2>document composition:</h2>
+                        <ul>
+                        <li class="fragment hljs-number" data-fragment-index="1">type de document</li>
+                        <li class="fragment hljs-number" data-fragment-index="2">
+                            <span class="fragment hljs-number" data-fragment-index="3">client</span>
+                            <span class="fragment hljs-number" data-fragment-index="4"> / adresse</span>
+                        </li>
+                        <li class="fragment hljs-number" data-fragment-index="5">date</li>
+                        <li class="fragment hljs-number" data-fragment-index="6">id unique</li>
+                        <li class="fragment hljs-number" data-fragment-index="7">
+                            <span class="fragment hljs-number" data-fragment-index="8">produits</span>
+                            <span class="fragment hljs-number" data-fragment-index="9"> / quantité</span>
+                            <span class="fragment hljs-number" data-fragment-index="10"> / prix unitaire</span>
+                        </li>
+                        <li class="fragment hljs-number" data-fragment-index="11">prix total</li>
+                        </ul>
+                    </section>
+                    
+                    <!-- administration -->
+                    <section>
+                        <h2>administration des documents:</h2>
+                        <ul>
+                            <li class="fragment hljs-number" data-fragment-index="1">accés par login</li>
+                            <li class="fragment hljs-number" data-fragment-index="2">pour chaque document
+                                <ul>
+                                    <li class="fragment hljs-string" data-fragment-index="3">édition</li>
+                                    <li class="fragment hljs-string" data-fragment-index="4">m.a.j.</li>
+                                    <li class="fragment hljs-string" data-fragment-index="5">suppression</li>
+                                    <li class="fragment hljs-string" data-fragment-index="6">export pdf</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </section>
+                    
+                </section>
+                
+                <!-- techno -->
+                <section>
+                    <h2>technologies mises en oeuvre</h2>
+                    <ul>
+                        <li class="fragment hljs-number" data-fragment-index="1">base de données
+                            <ul>
+                                <li class="fragment hljs-string" data-fragment-index="2">mysql</li>
+                            </ul>
+                        </li>
+                        <li class="fragment hljs-number" data-fragment-index="3">framework
+                            <ul>
+                                <li class="fragment hljs-string" data-fragment-index="4">Laravel 4.2</li>
+                            </ul>
+                        </li>
+                        <li class="fragment hljs-number" data-fragment-index="5">interface client
+                            <ul>
+                                <li class="fragment hljs-string" data-fragment-index="6">HTML5</li>
+                                <li class="fragment hljs-string" data-fragment-index="7">jQuery</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+            
+                 <!-- BDD -->
+                <section>
+                    <section>
+                        <h1>Base De Données</h1>
+                        <h2 class="fragment">Extended Entity–Relationship Model</h2>
+                    </section>
+                    <section fullscreen-img="./assets/hera_model_mapper1.png" fullscreen-size="contain">
+                    </section>
+                    <section>
+                        <h2>ORM - Eloquent</h2>
+                        <pre><code class="php" data-trim contenteditable style="font-size: 18px;">// app/models/Avoir.php
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
+
+class Avoir extends Eloquent {
+
+   use SoftDeletingTrait;
+    
+   function documentFrom()
+   {
+     return $this->belongsTo('Document','id_document_from');
+   }
+   function documentTo()
+   {
+     return $this->belongsTo('Document','id_document_to');
+   }  
+}</code></pre>
+                    </section>
+                </section>
+                 
+                <!-- Laravel routes & controleurs -->
+                <section>
+                    <section>
+                        <h1>routes & controleurs</h1>
+                        <h2 class="fragment">routes</h2>
+                        <pre class="fragment"><code class="php" data-trim contenteditable style="font-size: 18px;">// app/routes.php
+Route::filter('auth', function()
+{
+    if (Auth::guest()) return Redirect::to('user/login');
+});
+
+Route::group(array('before' => 'auth'), function()
+{
+    // Customer management
+    Route::controller('customer', 'CustomerController');
+    // Avoir management
+    Route::controller('avoir', 'AvoirController');
+...
+});</code></pre>
+                    </section>
+                    <section>
+                        <h2>controleurs</h2>
+                        <pre><code class="php" data-trim contenteditable style="font-size: 18px;">// app/controllers/AvoirController.php
+use Libs\Validation\AvoirValidator as AvoirValidator;
+use Libs\Gestion\AvoirGestion as AvoirGestion;
+
+class AvoirController extends BaseController {
+
+    protected $avoir_validation;
+    protected $avoir_gestion;
+
+    public function __construct(
+    AvoirValidator $avoir_validation, 
+    AvoirGestion $avoir_gestion
+    ) {
+        parent::__construct();
+        $this->avoir_validation = $avoir_validation;
+        $this->avoir_gestion = $avoir_gestion;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function getIndex() {
+        //$avoirs= Avoir::all();
+        //return View::make('site.avoir.index', compact('avoirs'));
+        //return View::
+        return View::make('site.avoir.index', 
+                          $this->avoir_gestion->index(100));
+    }
+...  
+}</code></pre>
+                    </section>
+                </section>
+                
+                <!-- vues -->
+                <section>
+                    <section>
+                        <h1>vues et javascript</h1>
+                        <h2 class="fragment">template Blade</h2>
+                        <pre class="fragment"><code class="php" data-trim contenteditable style="font-size: 18px;">// app/views/site/avoir/index.blade.php
+@extends('site.layouts.heraHome')
+
+{{-- Web site Title --}}
+@section('title','Gestion des Avoirs')
+{{{ Lang::get('user/user.login') }}} :: @parent
+@stop
+
+{{-- Home Content --}}
+@section('content')
+
+&lt;div class="row"&gt;
+    &lt;div class="col-md-12"&gt;
+        &lt;h4&gt;
+            &lt;span class="fa-stack fa-lg"&gt;
+                &lt;i class="fa fa-square fa-stack-1x"&gt;&lt;/i&gt;
+                &lt;i class="fa fa-pencil fa-stack fa-inverse"&gt;&lt;/i&gt;
+            &lt;/span&gt;
+            avoirs
+            &lt;a class="btn btn-small btn-success pull-right" 
+                  href="{{ URL::to('avoir/create') }}"&gt;Ajouter&lt;/a&gt;
+        &lt;/h4&gt;
+        @if (Session::has('message'))
+        &lt;div class="alert alert-info"&gt;
+            {{ Session::get('message') }}
+        &lt;/div&gt;
+        @endif
+...</code></pre>
+                    </section>
+                    <section>
+                        <h2>requêtage ajax</h2>
+                        <pre><code class="javascript" data-trim contenteditable style="font-size: 18px;">// app/public/js/ajax.js
+...
+$("#formSearchProd").submit(function( event ) {
+    event.preventDefault();
+    var q = $("input[name=q]").val();
+    $.ajax({
+        type: "GET",
+        url : public_url+"ajax/addproducttodoc/"+q
+        ,
+        success : function(data){
+            dataCustomer = data;
+        }
+    },"json");
+
+    }); 
+...</code></pre>
+                    </section>
+                </section>
+                 
+                <!-- conclusion -->
+                <section>
+                    <section>
+                        <h2>en conclusion</h2>
+                        <p>pouette</p>
+                        <ul>
+                            <li class="fragment highlight-blue" data-fragment-index="1">pouette</li>
+                            <li class="fragment highlight-blue" data-fragment-index="2">pouette</li>
+                            <li class="fragment highlight-blue" data-fragment-index="3">pouette</li>
+                            <li class="fragment highlight-blue" data-fragment-index="4">pouette pouette</li>
+                        </ul>
+                    </section>
+                </section>
+
+                <!-- merci -->
+                <section>
+                    <section>
+                        <h1>MERCI</h1>                        
+                    </section>
+                </section>
+
+            </div>
+
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.js"></script>
+
+        <script>
+
+            // Full list of configuration options available at:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+                transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+                // Optional reveal.js plugins
+                dependencies: [
+                    {src: 'lib/js/classList.js', condition: function () {
+                            return !document.body.classList;
+                        }},
+                    {src: 'plugin/markdown/marked.js', condition: function () {
+                            return !!document.querySelector('[data-markdown]');
+                        }},
+                    {src: 'plugin/markdown/markdown.js', condition: function () {
+                            return !!document.querySelector('[data-markdown]');
+                        }},
+                    {src: 'plugin/highlight/highlight.js', async: true, condition: function () {
+                            return !!document.querySelector('pre code');
+                        }, callback: function () {
+                            hljs.initHighlightingOnLoad();
+                        }},
+                    {src: 'plugin/zoom-js/zoom.js', async: true},
+                    {src: 'plugin/notes/notes.js', async: true},
+                    { src: 'lib/js/fullscreen-img.js' }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
